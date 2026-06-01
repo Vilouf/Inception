@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    restart: always
+    networks:
+      - inception_network
+    volumes:
+      - wordpress_data:/var/www/wordpress
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - mariadb
+    networks:
+      - inception_network
+    secrets:
+      - wp_admin_password
+      - db_password
+    environment:
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      SQL_DATABASE: ${SQL_DATABASE}
+      SQL_USER: ${SQL_USER}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+      WP_USER: ${WP_USER}
+      WP_USER_PASSWORD: ${WP_USER_PASSWORD}
+      WP_USER_EMAIL: ${WP_USER_EMAIL}
+    volumes:
+      - wordpress_data:/var/www/wordpress
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - inception_network
+    secrets:
+      - db_password
+      - db_root_password
+    environment:
+      SQL_DATABASE: ${SQL_DATABASE}
+      SQL_USER: ${SQL_USER}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+
+networks:
+  inception_network:
+    name: inception_network
+    driver: bridge
+
+volumes:
+  wordpress_data:
+    name: wordpress_data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pespana/data/wordpress
+
+  mariadb_data:
+    name: mariadb_data
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pespana/data/mariadb
