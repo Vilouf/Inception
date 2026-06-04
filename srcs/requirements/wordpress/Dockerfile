@@ -8,7 +8,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
-COPY conf/wordpress_setup.sh /usr/local/bin/wordpress_setup.sh
+COPY wordpress_setup.sh /usr/local/bin/wordpress_setup.sh
 RUN chmod +x /usr/local/bin/wordpress_setup.sh
 
 EXPOSE 9000
