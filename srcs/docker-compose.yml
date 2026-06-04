@@ -78,7 +78,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/vielblin/data/wordpress
+      device: /home/pespana/data/wordpress
 
   mariadb_data:
     name: mariadb_data
@@ -86,4 +86,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/vielblin/data/mariadb
+      device: /home/pespana/data/mariadb
