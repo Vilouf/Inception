@@ -8,13 +8,11 @@ echo "Starting WordPress setup..."
 
 cd /var/www/wordpress
 
-# 1. On télécharge WP si les fichiers n'existent pas
 if [ ! -f "wp-login.php" ]; then
     echo "Downloading WordPress..."
     wp core download --allow-root
 fi
 
-# 2. On configure et installe WP uniquement si la config n'existe pas
 if [ ! -f "wp-config.php" ]; then
     echo "Creating wp-config.php..."
     wp config create \
@@ -50,7 +48,6 @@ if [ ! -f "wp-config.php" ]; then
         --allow-root
 fi
 
-# 3. ON DONNE LES CLÉS À NGINX ET PHP (C'est ça qui enlève la 403 !)
 echo "Setting correct permissions..."
 chown -R www-data:www-data /var/www/wordpress
 chmod -R 755 /var/www/wordpress
