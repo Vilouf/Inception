@@ -5,8 +5,7 @@ RUN apt update && apt install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/mysqld \
-    && chown mysql:mysql /var/run/mysqld \
-    && chmod 777 /var/run/mysqld
+    && chown mysql:mysql /var/run/mysqld
 
 COPY mariadb_setup.sh /mariadb_setup.sh
 RUN chmod +x /mariadb_setup.sh
