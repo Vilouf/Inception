@@ -3,7 +3,7 @@ COMPOSE_FILE = srcs/docker-compose.yml
 SECRETS_DIR = secrets
 
 -include srcs/.env
-VOLUMES_DIR ?= /home/pespana/data
+VOLUMES_DIR ?= /home/vielblin/data
 
 GREEN = \033[1;32m
 RED = \033[1;31m
