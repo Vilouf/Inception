@@ -24,7 +24,6 @@ if [ ! -f "wp-config.php" ]; then
         --allow-root
 
     echo "Waiting for MariaDB to be ready..."
-    # Boucle qui patiente tant que MariaDB rejette la connexion
     while ! mariadb -h"mariadb" -u"${SQL_USER}" -p"${DB_PASSWORD}" "${SQL_DATABASE}" -e "SELECT 1;" &> /dev/null; do
         echo "MariaDB is not ready yet, waiting 2 seconds..."
         sleep 2
