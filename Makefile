@@ -46,6 +46,7 @@ secrets:
 		mkdir -p $(SECRETS_DIR); \
 		openssl rand -hex 64 | tr -d '\n' > $(SECRETS_DIR)/db_password.txt; \
 		openssl rand -hex 64 | tr -d '\n' > $(SECRETS_DIR)/db_root_password.txt; \
+		openssl rand -hex 64 | tr -d '\n' > $(SECRETS_DIR)/wp_user_password.txt; \
 		openssl rand -hex 64 | tr -d '\n' > $(SECRETS_DIR)/wp_admin_password.txt; \
 		echo "$(GREEN)Secrets generated successfully.$(RESET)"; \
 	else \
